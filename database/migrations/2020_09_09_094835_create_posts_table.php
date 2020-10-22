@@ -19,7 +19,12 @@ class CreatePostsTable extends Migration
             $table->string('event_location');
             $table->mediumText('rqst_desc');
             $table->mediumText('rqst_expectation');
+           //genre
             $table->json('toppings');
+            $table->integer('budget');
+            $table->string('event_date');
+            $table->string('event_date_timeline');
+
         });
     }
 

@@ -59,6 +59,9 @@ class PostsController extends Controller
         $post->rqst_expectation=$request->input('rqst_expectation');
         //$post->user_id=auth()->user()->id;
         $post->toppings=request('toppings');
+        $post->budget=request('budget');
+        $post->event_date=request('event_date');
+        $post->event_date_timeline=request('event_date_timeline');
         $post->save();
         return redirect('posts')->with('success','Post Created');
     }
@@ -109,6 +112,10 @@ class PostsController extends Controller
         $post->event_location=$request->input('event_location');
         $post->rqst_desc=$request->input('rqst_desc');
         $post->rqst_expectation=$request->input('rqst_expectation');
+        $post->budget=request('budget');
+        $post->event_date=request('event_date');
+        $post->event_date_timeline=request('event_date_timeline');
+        
         $post->save();
         return redirect('posts')->with('success','Post Created');
     }

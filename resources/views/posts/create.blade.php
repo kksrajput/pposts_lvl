@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -12,11 +13,11 @@
 
 @if(count($p_genre)>0)
         @foreach($p_genre as $x)
-        <div class="well">
+        
    
 
             <input type="checkbox" name="toppings[]" value="{{$x->genre_name}}" >{{$x->genre_name}}<br />
-        </div>
+  
         @endforeach
    
     @else
@@ -30,7 +31,9 @@
         Expectation from the photographer
         {{Form::textarea('rqst_expectation','',['class'=>'form-control','placeholder'=>'rqst_expectation'])}}
 
-
+        {{Form::text('budget','',['class'=>'form-control','placeholder'=>'event_location'])}}
+        {{Form::text('event_date','',['class'=>'form-control','placeholder'=>'event_location'])}}
+        {{Form::text('event_date_timeline','',['class'=>'form-control','placeholder'=>'event_location'])}}
     
 </div>
 {{Form::submit('Submit',['class'=>'btn btn-primary'])}}

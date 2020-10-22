@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<a class="btn btn-primary" href="posts/create">Createposts</a> 
+<h3>Your Blog Posts</h3>
     <h1>Posts</h1>
     @if(count($posts)>0)
         @foreach($posts as $post)

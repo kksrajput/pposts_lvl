@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\p_genre;
+use App\p_faq;
+use App\p_teamFaq;
 use DB;
 
 class PostsController extends Controller
@@ -34,8 +36,11 @@ class PostsController extends Controller
     public function create()
     {
         //
+        $p_faqs = p_faq::where('faq_type', 'faq_photeam_creation')->get();
+        // return $p_faqs;
+
         $p_genre = p_genre::all();
-        return view('posts.create')->with('p_genre',$p_genre);
+        return view('posts.create')->with('p_genre',$p_genre)->with('p_faqs',$p_faqs);
     }
 
     /**
@@ -44,26 +49,57 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
         //
-        $this->validate($request, [
-            'event_location'=>'required',
-            'rqst_desc'=>'required',
-            'rqst_expectation'=>'required',
-        ]);
-        //create posts
-        $post=new Post;
-        $post->event_location=$request->input('event_location');
-        $post->rqst_desc=$request->input('rqst_desc');
-        $post->rqst_expectation=$request->input('rqst_expectation');
-        //$post->user_id=auth()->user()->id;
-        $post->toppings=request('toppings');
-        $post->budget=request('budget');
-        $post->event_date=request('event_date');
-        $post->event_date_timeline=request('event_date_timeline');
-        $post->save();
-        return redirect('posts')->with('success','Post Created');
+        // $this->validate($request, [
+        //     'event_location'=>'required',
+        //     'rqst_desc'=>'required',
+        //     'rqst_expectation'=>'required',
+        // ]);
+        
+        // //create posts
+        // $post=new Post;
+        // $post->event_location=$request->input('event_location');
+        // $post->rqst_desc=$request->input('rqst_desc');
+        // $post->rqst_expectation=$request->input('rqst_expectation');
+        // //$post->user_id=auth()->user()->id;
+        // $post->toppings=request('toppings');
+        // $post->budget=request('budget');
+        // $post->event_date=request('event_date');
+        // $post->event_date_timeline=request('event_date_timeline');
+        // $post->save();
+        // return redirect('posts')->with('success','Post Created');
+        //questions
+        //$answ=new p_teamFaq();
+        $p_faqs = p_faq::where('faq_type', 'faq_photeam_creation')->get();
+        // foreach($p_faqs as $a)
+        // {
+        // $answ->answer=request('answer');
+        // $answ->faq_id=request('faq_id');
+        
+        // }
+    // p_teamFaq::create($req->all());
+
+        // foreach($req->answer as $item => $v)
+        // {
+        //     $arraydata = array(
+        //     'answer' => $req->answer[$item],
+        //     'faq_id' => $req->faq_id[$item]
+        //     );
+        //     // $answ->save();
+        //     p_teamFaq::insert($arraydata);
+
+        // }
+        $answ=$req->answer;
+        $g=$req->faq_id;
+
+        foreach ($answ as $key => $device_value) {
+            p_teamFaq::create([
+                'answer' => $device_value,
+                'faq_id' => $g[$key]
+            ]);}
+        
     }
 
     /**
@@ -117,6 +153,8 @@ class PostsController extends Controller
         $post->event_date_timeline=request('event_date_timeline');
         
         $post->save();
+        //create qs;
+        //$p_genre = p_genre::all();
         return redirect('posts')->with('success','Post Created');
     }
 
